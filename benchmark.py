@@ -106,6 +106,22 @@ def benchmark(trainX, trainY):
         else:
             raise ValueError("This task cannot be predicted (is not implemented yet) with the given dataset.")
 
+    elif config['task'] == 'Age_task_binary':
+        if config['dataset'] == 'antisaccade':
+            scoring = (lambda y, y_pred: accuracy_score(y, y_pred.ravel()))  # Subject to change to mean euclidean distance.
+            y = trainY[:,1] # The first column are the Id-s, we take the second which are labels
+            try_models(trainX=trainX, trainY=y, ids=ids, models=models, scoring=scoring)
+        else:
+            raise ValueError("This task cannot be predicted (is not implemented yet) with the given dataset.")
+
+    elif config['task'] == 'Age_task':
+        if config['dataset'] == 'antisaccade':
+            scoring = (lambda y, y_pred : np.sqrt(mean_squared_error(y, y_pred.ravel())))
+            y = trainY[:,1] # The first column are the Id-s, we take the second which are labels
+            try_models(trainX=trainX, trainY=y, ids=ids, models=models, scoring=scoring)
+        else:
+            raise ValueError("This task cannot be predicted (is not implemented yet) with the given dataset.")
+
     elif config['task'] == 'Direction_task':
         if config['dataset'] == 'dots':
             scoring = (lambda y, y_pred : np.sqrt(mean_squared_error(y, y_pred.ravel())))
@@ -114,11 +130,43 @@ def benchmark(trainX, trainY):
             scoring2 = (lambda y, y_pred: np.sqrt(np.mean(np.square(np.arctan2(np.sin(y - y_pred.ravel()), np.cos(y - y_pred.ravel()))))))
             y2 = trainY[:,2] # The first column are the Id-s, second are the amplitude labels, we take the third which are the angle labels
             try_models(trainX=trainX, trainY=y2, ids=ids, models=models['angle'], scoring=scoring2, save_trail='_angle')
-        else:
+        elif config['dataset'] == 'processing_speed':
+            scoring = (lambda y, y_pred : np.sqrt(mean_squared_error(y, y_pred.ravel())))
+            y1 = trainY[:,1] # The first column are the Id-s, we take the second which are amplitude labels
+            try_models(trainX=trainX, trainY=y1, ids=ids, models=models['amplitude'], scoring=scoring, save_trail='_amplitude')
+            scoring2 = (lambda y, y_pred: np.sqrt(np.mean(np.square(np.arctan2(np.sin(y - y_pred.ravel()), np.cos(y - y_pred.ravel()))))))
+            y2 = trainY[:,2] # The first column are the Id-s, second are the amplitude labels, we take the third which are the angle labels
+            try_models(trainX=trainX, trainY=y2, ids=ids, models=models['angle'], scoring=scoring2, save_trail='_angle')
+        elif config['dataset'] == 'antisaccade':
+            scoring = (lambda y, y_pred : np.sqrt(mean_squared_error(y, y_pred.ravel())))
+            y1 = trainY[:,1] # The first column are the Id-s, we take the second which are amplitude labels
+            try_models(trainX=trainX, trainY=y1, ids=ids, models=models['amplitude'], scoring=scoring, save_trail='_amplitude')
+            scoring2 = (lambda y, y_pred: np.sqrt(np.mean(np.square(np.arctan2(np.sin(y - y_pred.ravel()), np.cos(y - y_pred.ravel()))))))
+            y2 = trainY[:,2] # The first column are the Id-s, second are the amplitude labels, we take the third which are the angle labels
+            try_models(trainX=trainX, trainY=y2, ids=ids, models=models['angle'], scoring=scoring2, save_trail='_angle')
+        elif config['dataset'] == 'zuco':
+            scoring = (lambda y, y_pred : np.sqrt(mean_squared_error(y, y_pred.ravel())))
+            y1 = trainY[:,1] # The first column are the Id-s, we take the second which are amplitude labels
+            try_models(trainX=trainX, trainY=y1, ids=ids, models=models['amplitude'], scoring=scoring, save_trail='_amplitude')
+            scoring2 = (lambda y, y_pred: np.sqrt(np.mean(np.square(np.arctan2(np.sin(y - y_pred.ravel()), np.cos(y - y_pred.ravel()))))))
+            y2 = trainY[:,2] # The first column are the Id-s, second are the amplitude labels, we take the third which are the angle labels
+            try_models(trainX=trainX, trainY=y2, ids=ids, models=models['angle'], scoring=scoring2, save_trail='_angle')
+        
+        else: 
             raise ValueError("This task cannot be predicted (is not implemented yet) with the given dataset.")
 
     elif config['task'] == 'Position_task':
         if config['dataset'] == 'dots':
+            scoring = (lambda y, y_pred : np.sqrt(mean_squared_error(y, y_pred))) # Subject to change to mean euclidean distance.
+            scoring2 = (lambda y, y_pred: np.linalg.norm(y - y_pred, axis=1).mean()) # Euclidean distance
+            y = trainY[:,1:] # The first column are the Id-s, the second and third are position x and y which we use
+            try_models(trainX=trainX, trainY=y, ids=ids, models=models, scoring=scoring2)
+        elif config['dataset'] == 'processing_speed':
+            scoring = (lambda y, y_pred : np.sqrt(mean_squared_error(y, y_pred))) # Subject to change to mean euclidean distance.
+            scoring2 = (lambda y, y_pred: np.linalg.norm(y - y_pred, axis=1).mean()) # Euclidean distance
+            y = trainY[:,1:] # The first column are the Id-s, the second and third are position x and y which we use
+            try_models(trainX=trainX, trainY=y, ids=ids, models=models, scoring=scoring2)
+        elif config['dataset'] == 'zuco':
             scoring = (lambda y, y_pred : np.sqrt(mean_squared_error(y, y_pred))) # Subject to change to mean euclidean distance.
             scoring2 = (lambda y, y_pred: np.linalg.norm(y - y_pred, axis=1).mean()) # Euclidean distance
             y = trainY[:,1:] # The first column are the Id-s, the second and third are position x and y which we use

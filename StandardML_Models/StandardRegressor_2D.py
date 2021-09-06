@@ -1,9 +1,10 @@
-
+from config import config 
 class StandardRegressor_2D:
 
     def __init__(self, model_name, **model_params):
         self.model_name = model_name
         self.model = None
+        self.features = 210 if config['dataset'] == 'zuco' else 258 
         if self.model_name == 'KNN':
             from sklearn.neighbors import KNeighborsRegressor
             self.model1 = KNeighborsRegressor(**model_params)
@@ -58,12 +59,12 @@ class StandardRegressor_2D:
             self.model2 = DummyRegressor(**model_params, constant=300)
 
     def fit(self, trainX, trainY, validX, validY):
-        trainX = trainX.reshape((-1, 258))  # TODO: A hack for now
+        trainX = trainX.reshape((-1, self.features))  # TODO: A hack for now
         self.model1.fit(trainX, trainY[:,0].ravel())
         self.model2.fit(trainX, trainY[:,1].ravel())
 
     def predict(self, testX):
-        testX = testX.reshape((-1, 258))  # TODO: A hack for now
+        testX = testX.reshape((-1, self.features))  # TODO: A hack for now
         predict1 = self.model1.predict(testX)
         predict2 = self.model2.predict(testX)
         import numpy as np

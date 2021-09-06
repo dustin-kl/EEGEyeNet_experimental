@@ -40,7 +40,7 @@ def main():
 
     #Start benchmark
     benchmark(trainX, trainY)
-    #directory = 'results/standardML'
+    #directory = "/itet-stor/wolflu/net_scratch/projects/EEGEyeNet_experimental/runs/1626856539_Age_task_binary_antisaccade_min_pytorch_patience_20_lr_0.0001"
     #print_table(directory, preprocessing='max')
 
     logging.info("--- Runtime: %s seconds ---" % (time.time() - start_time))

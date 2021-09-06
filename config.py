@@ -10,15 +10,17 @@ config = dict()
 ##################################################################
 ##################################################################
 # 'LR_task' (dataset: 'antisaccade'):
-# 'Direction_task' (dataset: 'dots' or 'processing_speed'): dots = "Large Grid Dataset" and processing_speed = "Visual Symbol Search"
-# 'Position_task' (dataset: 'dots'):
+# 'Direction_task' (dataset: 'dots' or 'processing_speed' or 'zuco'): dots = "Large Grid Dataset" and processing_speed = "Visual Symbol Search"
+# 'Position_task' (dataset: 'dots' or 'zuco'):
+# 'Age_task' (dataset: 'antisaccade): for age regression 
+# 'Age_task_binary' (dataset: 'antisaccade'): for age classification into people under/over 35 years 
 config['task'] = 'Position_task'
 config['dataset'] = 'dots'
-config['preprocessing'] = 'min'  # or min
-config['feature_extraction'] = True
-config['include_ML_models'] = True
-config['include_DL_models'] = True
-config['include_your_models'] = True
+config['preprocessing'] = 'min'  # max or min
+config['feature_extraction'] = True 
+config['include_ML_models'] = False
+config['include_DL_models'] = False
+config['include_your_models'] = False
 config['include_dummy_models'] = True
 
 ##################################################################
@@ -29,11 +31,12 @@ config['include_dummy_models'] = True
 # Where experiment results are stored.
 config['log_dir'] = './runs/'
 # Path to training, validation and test data folders.
-config['data_dir'] = '../data/'
+config['data_dir'] = './data/'
 # Path of root
 config['root_dir'] = '.'
 # Retrain or load already trained
 config['retrain'] = True
+config['pretrained'] = False 
 config['save_models'] = True
 # If retrain is false we need to provide where to load the experiment files
 config['load_experiment_dir'] = ''
@@ -52,11 +55,10 @@ config['all_EEG_file'] = build_file_name() # or use your own specified file name
 ##################################################################
 ##################################################################
 # Specific to models now
-config['framework'] = 'pytorch'
-config['learning_rate'] = 1e-4
+config['framework'] = 'tensorflow' # pytorch or tensorflow 
+config['learning_rate'] = 1e-5
 config['early_stopping'] = True
 config['patience'] = 20
-
 
 ##################################################################
 ##################################################################
@@ -70,6 +72,15 @@ config['trainY_variable'] = 'labels'
 def create_folder():
     if config['retrain']:
         model_folder_name = str(int(time.time()))
+        model_folder_name += '_' + config['task'] + '_' + config['dataset'] + '_' + config['preprocessing'] 
+        model_folder_name += '_hilbert' if config['feature_extraction'] else ''
+        model_folder_name += '_pretrained' if config['pretrained'] and config['include_DL_models'] else ''
+        model_folder_name += f"_{config['framework']}" if config['include_DL_models'] else ''
+        model_folder_name += f"_patience_{config['patience']}" if config['include_DL_models'] else ''
+        model_folder_name += f"_lr_{config['learning_rate']}" if config['include_DL_models'] else ''
+        model_folder_name += "_standML" if config['include_ML_models'] else ''
+        model_folder_name += "_DUMMY" if config['include_dummy_models'] else ''
+
         config['model_dir'] = os.path.abspath(os.path.join(config['log_dir'], model_folder_name))
         config['checkpoint_dir'] = config['model_dir'] + '/checkpoint/'
         if not os.path.exists(config['model_dir']):

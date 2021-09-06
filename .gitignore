@@ -7,3 +7,7 @@ data/*
 run.sh
 log/*
 tables/*
+archive_runs/*
+images/*
+pretrained_models/*
+participants_concat.xlsx

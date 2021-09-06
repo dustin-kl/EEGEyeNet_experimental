@@ -60,7 +60,15 @@ class Ensemble_torch:
         for i in range(self.nb_models):
             logging.info("------------------------------------------------------------------------------------")
             logging.info('Start fitting model number {}/{} ...'.format(i+1, self.nb_models))
-            model = self.model(loss = self.loss, model_number=i, batch_size=self.batch_size, **self.model_params)
+            
+            if config['pretrained']:
+                model = self.model(loss=self.loss, model_number=0, batch_size=self.batch_size, **self.model_params)  
+                path = './pretrained_models/pytorch/' + config['dataset'] + '/' + self.model_name + '_' + config['task'] + '.pth'
+                model.load_state_dict(torch.load(path))  
+                model.eval()
+            else:
+                model = self.model(loss = self.loss, model_number=i, batch_size=self.batch_size, **self.model_params)
+            logging.info(f"Fitting {self.model_name}")
             model.fit(train_dataloader, validation_dataloader)
             self.models.append(model)
             logging.info('Finished fitting model number {}/{} ...'.format(i+1, self.nb_models))
