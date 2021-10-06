@@ -15,7 +15,7 @@ class Inception(ConvNet):
     Daniel F. Schmidt, Jonathan Weber, Geoffrey I. Webb, Lhassane Idoumghar, Pierre-Alain Muller, François Petitjean
     
     """
-    def __init__(self, loss, model_number, batch_size, input_shape, output_shape, kernel_size=64, epochs = 50, nb_filters=16, verbose=True,
+    def __init__(self, model_name, path, loss, model_number, batch_size, input_shape, output_shape, kernel_size=64, epochs = 50, nb_filters=16, verbose=True,
                             use_residual=True, depth=12, bottleneck_size=16):
         """
         nb_features: specifies number of channels before the output layer 
@@ -23,7 +23,7 @@ class Inception(ConvNet):
         self.bottleneck_size = bottleneck_size
         self.nb_features = 4 * nb_filters # these are the 4 concatenated parallel convolutions, width of the inner tensort passed through network 
         logging.info('--------------- bottleneck_size : ' + str(self.bottleneck_size))
-        super().__init__(loss=loss, model_number=model_number, batch_size=batch_size, input_shape=input_shape, output_shape=output_shape, kernel_size=kernel_size, epochs=epochs,
+        super().__init__(model_name=model_name, path=path, loss=loss, model_number=model_number, batch_size=batch_size, input_shape=input_shape, output_shape=output_shape, kernel_size=kernel_size, epochs=epochs,
                             nb_filters=nb_filters, verbose=verbose,
                             use_residual=use_residual, depth=depth)
 

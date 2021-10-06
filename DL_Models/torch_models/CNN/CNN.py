@@ -6,13 +6,14 @@ class CNN(ConvNet):
     """
     The CNN is one of the simplest classifiers. It implements the class ConvNet, which is made of modules with a specific depth.
     """
-    def __init__(self, loss, model_number, batch_size, input_shape, output_shape, kernel_size=64, epochs = 50, nb_filters=16, verbose=True,
+    def __init__(self, model_name, path, loss, model_number, batch_size, input_shape, output_shape, kernel_size=64, epochs = 50, nb_filters=16, verbose=True,
                 use_residual=True, depth=12):
         """
         nb_features: specifies number of channels before the output layer 
         """
         self.nb_features = nb_filters # For CNN simply the number of filters / channels 
-        super().__init__(loss=loss, model_number=model_number, batch_size=batch_size, input_shape=input_shape, output_shape=output_shape, kernel_size=kernel_size, epochs=epochs,
+        super().__init__(model_name=model_name, path=path, loss=loss, model_number=model_number, batch_size=batch_size, input_shape=input_shape, 
+                                    output_shape=output_shape, kernel_size=kernel_size, epochs=epochs,
                                     nb_filters=nb_filters, verbose=verbose,
                                     use_residual=use_residual, depth=depth)
 

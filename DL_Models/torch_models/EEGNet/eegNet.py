@@ -14,7 +14,7 @@ class EEGNet(BaseNet):
 
     
     """
-    def __init__(self, loss, model_number, batch_size, input_shape, output_shape, epochs=50,
+    def __init__(self, model_name, path, loss, model_number, batch_size, input_shape, output_shape, epochs=50,
                 F1=16, F2=256, verbose=True, D=4, kernel_size=256,
                 dropout_rate=0.5):
         """
@@ -31,7 +31,7 @@ class EEGNet(BaseNet):
         self.dropout_rate = dropout_rate
         self.batch_size = batch_size
 
-        super().__init__(loss, input_shape=input_shape, output_shape=output_shape, epochs=epochs, model_number=model_number, verbose=verbose)
+        super().__init__(model_name=model_name, path=path, loss=loss, input_shape=input_shape, output_shape=output_shape, epochs=epochs, model_number=model_number, verbose=verbose)
         
         # Block 1: 2dconv and depthwise conv
         self.padconv1 = Pad_Conv2d(kernel=(1,self.kernel_size))

@@ -15,13 +15,13 @@ class ConvNet(ABC, BaseNet):
     Inherit from this class and only implement _module() and _get_nb_features_output_layer() methods
     Modules are then stacked in the forward() pass of the model 
     """
-    def __init__(self, loss, model_number, batch_size, input_shape, output_shape, kernel_size=32, epochs=2, nb_filters=32, verbose=True,
+    def __init__(self, model_name, path, loss, model_number, batch_size, input_shape, output_shape, kernel_size=32, epochs=2, nb_filters=32, verbose=True,
                 use_residual=False, depth=6,  preprocessing = False):
         """
         We define the layers of the network in the __init__ function
         """
         self.batch_size = batch_size
-        super().__init__(loss=loss, input_shape=input_shape, output_shape=output_shape, epochs=epochs, verbose=verbose,
+        super().__init__(model_name=model_name, path=path, loss=loss, input_shape=input_shape, output_shape=output_shape, epochs=epochs, verbose=verbose,
                             model_number=model_number)
 
         self.use_residual = use_residual

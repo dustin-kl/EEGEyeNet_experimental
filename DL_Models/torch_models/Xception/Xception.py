@@ -11,13 +11,13 @@ class XCEPTION(ConvNet):
     as separable convolutions and can achieve better accuracy than the Inception architecture. It is made of modules in a specific depth.
     Each module, in our implementation, consists of a separable convolution followed by batch normalization and a ReLu activation layer.
     """
-    def __init__(self, loss, model_number, batch_size, input_shape, output_shape, kernel_size=40, nb_filters=64, verbose=True, epochs=1,
+    def __init__(self, model_name, path, loss, model_number, batch_size, input_shape, output_shape, kernel_size=40, nb_filters=64, verbose=True, epochs=1,
                         use_residual=True, depth=6):
         """
         nb_features: specifies number of channels before the output layer 
         """
         self.nb_features = nb_filters # Exception passes a tensor of shape (timesamples, nb_filters) through the network
-        super(XCEPTION, self).__init__(loss=loss, model_number=model_number, batch_size=batch_size, input_shape=input_shape, output_shape=output_shape, kernel_size=kernel_size,
+        super(XCEPTION, self).__init__(model_name=model_name, path=path, loss=loss, model_number=model_number, batch_size=batch_size, input_shape=input_shape, output_shape=output_shape, kernel_size=kernel_size,
                                        nb_filters=nb_filters, verbose=verbose, epochs=epochs, use_residual=use_residual, depth=depth, preprocessing=False)
 
     def _module(self, depth):
