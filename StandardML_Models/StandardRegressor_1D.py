@@ -2,7 +2,7 @@ import logging
 from config import config 
 class StandardRegressor_1D:
 
-    def __init__(self, model_name, **model_params):
+    def __init__(self, path, model_name, **model_params):
         self.model_name = model_name
         self.model = None
         self.features = 210 if config['dataset'] == 'zuco' else 258
