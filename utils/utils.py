@@ -1,11 +1,11 @@
-#import matplotlib
-#matplotlib.use('Agg')
-#import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 import pandas as pd
 #from config import config
 #import seaborn as sns
-#import numpy as np
+import numpy as np
 #import torch
 #import pandas as pd
 #import math
@@ -81,16 +81,34 @@ import operator
 #         plt.savefig(output_directory + '/' + model + '_loss.png')
 #     #plt.show()
 
-# def plot_loss_torch(loss, output_directory, model):
-#     epochs=np.arange(len(loss))
-#     plt.figure()
-#     plt.title(model + ' loss')
-#     plt.plot(epochs, loss, 'b-', label='training')
-#     plt.legend()
-#     plt.xlabel('epochs')
-#     plt.ylabel('Binary Cross Entropy')
-#     plt.savefig(output_directory + '/' + model + 'loss.png')
-#     # plt.show()
+def plot_loss(train_loss, val_loss, loss_name, path):
+	"""
+	label: training, validation, or test
+	loss: np.array 
+	loss_name: name of the loss fct to plot
+	path: where to store the plot 
+	"""
+	epochs = np.arange(len(train_loss))
+	plt.figure()
+	plt.title(loss_name)
+	plt.plot(epochs, train_loss, 'b-', label='training')
+	plt.plot(epochs, val_loss, 'g-', label='validation')
+	plt.legend()		
+	plt.xlabel('Epochs')
+	plt.ylabel('Loss')
+	plt.savefig(path +'_loss.png')
+    # plt.show()
+	plt.clf() 
+
+def prob_to_one_hot(pred):
+    """
+    Takes a np.array of probabilities and creates the corresponding one-hot encoded np.array where
+    we set 1 for the most probable class, all others 0 
+    """
+    arr = np.zeros_like(pred)
+    arr[np.arange(len(pred)), pred.argmax(axis=1)] = 1
+    return arr 
+
 #
 #
 # def cp_dir(source, target):

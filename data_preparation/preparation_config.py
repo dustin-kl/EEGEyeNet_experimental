@@ -11,8 +11,8 @@ preparation_config = dict()
 # 'Direction_task' (dataset: 'dots' or 'processing_speed'):
 # 'Position_task' (dataset: 'dots'):
 # 'Segmentation_task' (dataset: 'antisaccade', 'dots', or 'processing_speed'):
-preparation_config['task'] = 'Direction_task'
-preparation_config['dataset'] = 'antisaccade'
+preparation_config['task'] = 'Position_task'
+preparation_config['dataset'] = 'dots'
 
 # We provide two types of preprocessing on the dataset (minimal preprocessing and maximal preprocessing). Choices are
 # 'max'

@@ -4,6 +4,7 @@ import scipy.io as sio
 import os
 import pickle
 import logging
+import pandas  as pd 
 
 def get_npz_data(data_dir, verbose=True):
     if verbose:
@@ -11,11 +12,11 @@ def get_npz_data(data_dir, verbose=True):
     with np.load(data_dir + config['all_EEG_file']) as f:
         X = f[config['trainX_variable']]
         if verbose:
-            logging.info("X training loaded.")
+            logging.info("X (data) loaded.")
             logging.info(X.shape)
         y = f[config['trainY_variable']]
         if verbose:
-            logging.info("y training loaded.")
+            logging.info("y (labels) loaded.")
             logging.info(y.shape)
     return X, y
 
@@ -30,3 +31,7 @@ def store(x, y, clip=True):
     output_y = open('y_clip.pkl', 'wb')
     pickle.dump(y, output_y)
     output_y.close()
+
+def write_dict_to_csv(dict, path):
+    df = pd.DataFrame.from_dict(dict)
+    df.to_csv(path)

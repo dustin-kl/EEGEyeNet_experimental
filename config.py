@@ -13,15 +13,16 @@ config = dict()
 # 'Direction_task' (dataset: 'dots' or 'processing_speed' or 'zuco'): dots = "Large Grid Dataset" and processing_speed = "Visual Symbol Search"
 # 'Position_task' (dataset: 'dots' or 'zuco'):
 # 'Age_task' (dataset: 'antisaccade): for age regression 
-# 'Age_task_binary' (dataset: 'antisaccade'): for age classification into people under/over 35 years 
-config['task'] = 'Position_task'
+# 'Age_task_binary' (dataset: 'antisaccade'): for age classification into people under/over 35 years
+# 'Dots_classification_task' (dataset: 'dots'): classification of fixations to the corresponding dots in the paradigm  
+config['task'] = 'Dots_classification_task'
 config['dataset'] = 'dots'
 config['preprocessing'] = 'min'  # max or min
-config['feature_extraction'] = True 
+config['feature_extraction'] = False
 config['include_ML_models'] = False
-config['include_DL_models'] = False
+config['include_DL_models'] = True 
 config['include_your_models'] = False
-config['include_dummy_models'] = True
+config['include_dummy_models'] = False 
 
 ##################################################################
 ##################################################################
@@ -48,19 +49,17 @@ def build_file_name():
     return all_EEG_file
 config['all_EEG_file'] = build_file_name() # or use your own specified file name
 
-
 ##################################################################
 ##################################################################
 ############### MODELS CONFIGURATIONS ############################
 ##################################################################
 ##################################################################
 # Specific to models now
-config['framework'] = 'tensorflow' # pytorch or tensorflow 
-config['learning_rate'] = 1e-5
+config['framework'] = 'pytorch' # pytorch or tensorflow 
+config['learning_rate'] = 1e-5          
 config['early_stopping'] = True
-config['patience'] = 20
+config['patience'] = 20 
 
-##################################################################
 ##################################################################
 ############### HELPER VARIABLES #################################
 ##################################################################

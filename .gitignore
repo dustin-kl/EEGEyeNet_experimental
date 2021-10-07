@@ -11,3 +11,5 @@ archive_runs/*
 images/*
 pretrained_models/*
 participants_concat.xlsx
+run_preparator.sh 
+/notebooks/*
