@@ -2,7 +2,7 @@
 /venv/
 *.pyc
 .DS_Store
-/runs/*
+runs/*
 data/*
 run.sh
 log/*
@@ -13,3 +13,4 @@ pretrained_models/*
 participants_concat.xlsx
 run_preparator.sh 
 /notebooks/*
+stdout.log

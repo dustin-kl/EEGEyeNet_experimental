@@ -1,0 +1,9 @@
+echo -ne "\n \n -------------------------------------------\n"  >> stdout.log
+
+now=$(date +"%T")
+echo "Current time : $now" >> stdout.log
+
+eval "$(conda shell.bash hook)"
+conda activate eegeyenet_benchmark
+
+nohup python main.py >> stdout.log
