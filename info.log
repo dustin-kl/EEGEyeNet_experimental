@@ -1,0 +1,14 @@
+INFO:root:Started the Logging
+INFO:root:Total samples to write: 164233
+INFO:root:Failed participants: 0
+INFO:root:Saving data...
+INFO:root:Started the Logging
+INFO:root:Started the Logging
+INFO:root:Failed participants: 0
+INFO:root:Saving data...
+INFO:root:Shapes of EEG are: 
+INFO:root:(21331861, 133)
+INFO:root:Shapes of labels are: 
+INFO:root:(21331861,)
+INFO:root:Saving data...
+INFO:root:---SAVED DATA---
