@@ -15,7 +15,7 @@ class Seg_Prep:
 		self.X_samples = []
 		self.y_samples = []
 
-	def prepare(self, X, y, sample_len):
+	def prepare(self, sample_len):
 		half_sample = int(sample_len/2)
 		for i in tqdm(range(half_sample+1, len(X)-half_sample-1)):
 			self.X_samples.append(X[i-half_sample:i+half_sample])
@@ -23,3 +23,8 @@ class Seg_Prep:
 
 	def save(self, path):
 		np.savez(path, EEG=np.array(self.X), labels=np.array(self.y))
+
+
+preparator = Seg_Prep(X, y)
+preparator.prepare()
+preparator.save()
